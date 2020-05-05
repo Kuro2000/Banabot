@@ -1,0 +1,2 @@
+https://thomlom.dev/create-a-discord-bot-under-15-minutes/ : My fundamental 
+discord.js.org: The Discord.js Documentation
