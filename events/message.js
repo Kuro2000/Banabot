@@ -17,7 +17,7 @@ module.exports = (client, message) => {
     return inv(message)
   }
 
-  if(message.content.startsWith("!vote")){ //Vote function ||WIP||
+  if(message.content.startsWith("!vote")){ //Vote function
     return vote(message)
   }
 
