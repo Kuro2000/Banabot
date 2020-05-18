@@ -1,6 +1,8 @@
+desc='Set role cho user khi mới gia nhập server';
+
 module.exports = (client,message) => {
     const member = message.member;
-    const channel = client.channels.cache.get("706914192803758181") //bot-commands channel
+    const channel = client.channels.cache.get("707132999199752192") //bot-commands channel
 
     if (member._roles.length==0){
         if(message.content.split(" ")[1]==="btcm"){roleID = "706915179153326100"} //Role ID for BTCM role

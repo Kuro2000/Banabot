@@ -1,3 +1,5 @@
+desc='Kick user bất kì';
+
 module.exports = message => {
     const member = message.mentions.members.first()
     if (!member) {
