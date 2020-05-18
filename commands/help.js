@@ -3,7 +3,7 @@ desc='Hiển thị danh sách lệnh';
 const fs = require('fs');
 
 module.exports = (client,message) => {
-    const channel = client.channels.cache.get("707132999199752192") //bot-commands channel
+    const channel = client.channels.cache.get("706914192803758181") //bot-commands channel
 
     fs.readdir("./commands",(err,files)=>{
         files.forEach(file=>{
