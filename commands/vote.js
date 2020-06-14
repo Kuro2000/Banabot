@@ -1,31 +1,23 @@
-// Tạo ra một bảng vote YES/NO dựa trên chủ đề đã nhập
+const Discord = require('discord.js')
 
 module.exports = async(message) => {
     let topic = message.content.slice(6, message.content.length);
     if (!topic){topic = "Không chủ đề"}
     message.delete()
         .catch("Voting: " + console.error)
-    const poll = await message.channel.send({"embed":{
-        "title": `**Vote: ${topic}**`,
-        "description": "Hãy react bằng emoji tương ứng trong **15 giây** tới",
-        "color": 3447003,
-        "footer": {
-            "text": `Poll được tạo bởi ${message.author.username}`
-        },
-        "thumbnail": {
-            "url": "https://cdn.discordapp.com/embed/avatars/0.png"
-        },
-          
-        "fields": [
-        {
-            "name": "👍: Thumps up",
-            "value": "Đồng ý với ý kiến trên"
-        },
-        {
-            "name": "👎: Thumps down",
-            "value": "Không đồng ý với ý kiến trên"
-        }]
-    }}) 
+
+    let voteEmbed = new Discord.MessageEmbed()
+        .setColor(3447003)
+        .setTitle(`**Vote: ${topic}**`)
+        .setDescription("Hãy react bằng emoji tương ứng trong **15 giây** tới")
+        .setFooter(`Poll được tạo bởi ${message.author.username}`)
+        .setThumbnail(`https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}.png`)
+        .addFields(
+            {name: `👍: Thumps up`, value: `Đồng ý với ý kiến trên`, inline: true},
+            {name: `👎: Thumps down`, value: `Không đồng ý với ý kiến trên`, inline: true}
+        )
+        
+    const poll = await message.channel.send(voteEmbed) 
     await poll.react('👍')
     await poll.react('👎')
 
