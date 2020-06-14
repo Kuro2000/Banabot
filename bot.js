@@ -2,6 +2,8 @@ require("dotenv").config()
 const Discord = require('discord.js');
 const fs = require('fs');
 const client = new Discord.Client();
+const mongoose = require('mongoose');
+const db = mongoose.connection;
 
 fs.readdir("./events",(err,files)=>{
     files.forEach(file=>{
@@ -12,3 +14,9 @@ fs.readdir("./events",(err,files)=>{
 })
 
 client.login(process.env.BOT_TOKEN)
+
+//Database connection establish
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => console.log('DB Connected!'));
+db.on('error', err=>{
+    console.log(`DB connection error: ${err.message}`)
+})
