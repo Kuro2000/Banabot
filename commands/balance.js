@@ -28,15 +28,19 @@ module.exports = message => {
                 user.balance += parseInt(args[1])
                 user.save()
                 .then(result => {
-                    console.log(result)
+                    let reason = ""
+                    for (let i = 2; i < args.length-1; i++){
+                        reason = reason + args[i] + " "
+                    }
 
+                    console.log(`Changed ${result.userID} balance by ${args[1]}, reason: ${reason}`)
                     changeLog = new Discord.MessageEmbed()
                         .setColor(3447003)
                         .setFooter("💰 Economy system by Kuro")
                         .addFields(
                             { name: `**Username**`, value: message.mentions.members.first(), inline: true },
                             { name: `**Số tiền**`, value: args[1]+"$", inline: true },
-                            { name: `**Lí do**`, value: args[2], inline: true }
+                            { name: `**Lí do**`, value: reason, inline: true }
                         )
                     message.channel.send(changeLog)
                 })
@@ -81,6 +85,7 @@ module.exports = message => {
                         let dailyEmbed = new Discord.MessageEmbed()
                             .setColor("GREEN")
                             .setDescription(`**Lương hàng ngày**`)
+                            .setThumbnail(`https://i.ytimg.com/vi/Ajxj6chgUI4/hqdefault.jpg`)
                             .addField(`Số tiền`, 0.2+"$")
                             .setFooter("💰 Economy system by Kuro")
                 
