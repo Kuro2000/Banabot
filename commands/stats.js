@@ -15,7 +15,7 @@ module.exports = message => {
                 balance: 0,
                 level: 1,
                 exp: 0,
-                lastAttendance: message.createdAt
+                lastAttendance: 0
             })
             
             user.save()
