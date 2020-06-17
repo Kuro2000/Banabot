@@ -1,5 +1,6 @@
 const kick = require("../commands/kick")
-const role = require("../commands/role")
+const role = require("../commands/exclusive/role")
+const news = require("../commands/exclusive/news")
 const inv = require("../commands/inv")
 const vote = require("../commands/vote")
 const help = require("../commands/help")
@@ -19,7 +20,14 @@ module.exports = (client, message) => {
     if (message.content.startsWith(prefix + "send")){ //Make custom announcements.
       return send(message)
     }
+  }
 
+  if (message.content.startsWith(prefix + "role")){ //Set role function, only useable in specified GuildID.
+    return role(message)
+  }
+
+  if (message.content.startsWith(prefix + "news")){ //Set role function, only useable in specified GuildID.
+    return news(message)
   }
 
   if (message.content.startsWith(prefix+"report")){ //Report issues function.
@@ -32,10 +40,6 @@ module.exports = (client, message) => {
 
   if (message.content.startsWith(prefix + "kick")){ //Kick function.
     return kick(message)
-  }
-  
-  if (message.content.startsWith(prefix + "role")){ //Set role function, only useable in my server.
-    return role(message)
   }
 
   if (message.content.startsWith(prefix + "inv")){ //Get invite link function.

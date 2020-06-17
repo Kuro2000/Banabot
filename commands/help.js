@@ -6,7 +6,7 @@ module.exports = (message) => {
     let helpEmbed = new Discord.MessageEmbed()
     .setColor(3447003)
     .setTitle(`Commands list`)
-    .setDescription(`**📜Các câu hiện có trong server**`)
+    .setDescription(`**📜 Các câu hiện có trong server**`)
     .setThumbnail(`https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}.png`)
     .addFields(
         {name: `🙋‍♂️ **${prefix}help**`, value: "Danh sách các lệnh"},
