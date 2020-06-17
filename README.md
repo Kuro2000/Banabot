@@ -1,5 +1,6 @@
 # Discord-Bot
-Created a Discord Bot for auto moderation\n
+Created a Discord Bot for auto moderation
+
 Currently deploying on Heroku, with `BOT_TOKEN` and `MONGO_URI` provided in configvars
 
 Using ```npm run dev``` to start using live server
@@ -12,6 +13,6 @@ Features:
 - report: Send reports to server
 - stats: Check info of user
 - balance: Commands regard to server's economy system
-    +) Balance altering for admins
-    +) Economy leaderboards
+    - Balance altering for admins
+    - Economy leaderboards
 - Some **admin-only** commands
