@@ -1,4 +1,11 @@
 {
+    "ownerID": "155959668441743360",
     "prefix": "!",
-    "ownerID": "155959668441743360" 
+
+    "embedColors":{
+        "errors": "0xff3333",
+        "info": "0x3498d8",
+        "success": "0x47d147"
+    }
+     
 }

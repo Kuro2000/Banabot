@@ -4,7 +4,7 @@ const prefix = config.prefix
 
 module.exports = (message) => {
     let helpEmbed = new Discord.MessageEmbed()
-    .setColor(3447003)
+    .setColor(config.embedColors.info)
     .setTitle(`Commands list`)
     .setDescription(`**📜 Các câu hiện có trong server**`)
     .setThumbnail(`https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}.png`)

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const User = require('../models/userModels')
 const Discord = require('discord.js')
 const guildsIDAvailable = ["619210652455534613","650993735890501652"]
+const config = require('../config.json')
 
 module.exports = message => {
     if (!guildsIDAvailable.includes(message.guild.id)){return message.channel.send("Lệnh chưa khả dụng ở server này 💃")} //Only available in some server
@@ -31,7 +32,7 @@ module.exports = message => {
             var uLevel = user.level
 
             let statEmbed = new Discord.MessageEmbed()
-            .setColor(3447003)
+            .setColor(config.embedColors.info)
             .setTitle(`Thông tin cá nhân`)
             .setFooter("Economy system by Kuro")
             .setThumbnail(`https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}`)

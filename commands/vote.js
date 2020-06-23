@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const config = require('../config.json')
 
 module.exports = async(message) => {
     let topic = message.content.slice(6, message.content.length);
@@ -7,7 +8,7 @@ module.exports = async(message) => {
         .catch("Voting: " + console.error)
 
     let voteEmbed = new Discord.MessageEmbed()
-        .setColor(3447003)
+        .setColor(config.embedColors.info)
         .setTitle(`**Vote: ${topic}**`)
         .setDescription("Hãy react bằng emoji tương ứng trong **15 giây** tới")
         .setFooter(`Poll được tạo bởi ${message.author.username}`)
