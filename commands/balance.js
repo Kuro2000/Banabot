@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const User = require('../models/userModels');
 const Discord = require('discord.js');
 const ms = require('parse-ms')
+const config = require('../config.json')
 
 module.exports = message => {
     const args = message.content.slice(9, message.content.length).split(" ");
@@ -35,11 +36,11 @@ module.exports = message => {
 
                     console.log(`Changed ${result.userID} balance by ${args[1]}, reason: ${reason}`)
                     changeLog = new Discord.MessageEmbed()
-                        .setColor(3447003)
+                        .setColor(config.embedColors.success)
                         .setFooter("💰 Economy system by Kuro")
                         .addFields(
                             { name: `**Username**`, value: message.mentions.members.first(), inline: true },
-                            { name: `**Số tiền**`, value: args[1]+"$", inline: true },
+                            { name: `**Số tiền**`, value: args[1]+" vnđ", inline: true },
                             { name: `**Lí do**`, value: reason, inline: true }
                         )
                     message.channel.send(changeLog)
@@ -54,11 +55,11 @@ module.exports = message => {
                 let content = ""
                 i = 0
                 users.forEach(user=>{
-                    content+= `${i+1}. ${user.username}: ${(Math.round(user.balance * 100) / 100)}$\n`
+                    content+= `${i+1}. ${user.username}: ${(Math.round(user.balance * 100) / 100)} vnđ\n`
                     i+=1
                 })
                 let ranking = new Discord.MessageEmbed()
-                .setColor(3447003)
+                .setColor(config.embedColors.info)
                 .setTitle("**🎖️🎖️ Top các đại gia 🎖️🎖️**")
                 .setThumbnail(message.guild.iconURL)
                 .setDescription(content)
@@ -69,6 +70,7 @@ module.exports = message => {
             break;
 
         case "daily": //Claim daily wages
+            if(message.channel.id != "706914192803758181"){ return;} // Bot only detect specified channel to avoid spamming
             User.findOne({userID:message.author.id},(err,user)=>{
                 if(user==null){ return message.reply("🚫User không tồn tại, nhập **!stats** để tạo thông tin🚫");}
                 lastAttendance = Date.parse(user.lastAttendance)
@@ -76,17 +78,17 @@ module.exports = message => {
                     let time = ms(86400000 - (Date.now() - lastAttendance));
                     message.channel.send(`Hãy đợi **${time.hours}h ${time.minutes}m ${time.seconds}s** để nhận daily!`)
                 } else{
-                    user.balance+=0.2
+                    user.balance+=200
                     user.lastAttendance = Date.now()
 
                     user.save()
                     .then(result=>{
                         console.log(`${result.userID} claimed daily`)
                         let dailyEmbed = new Discord.MessageEmbed()
-                            .setColor("GREEN")
+                            .setColor(config.embedColors.success)
                             .setDescription(`**Lương hàng ngày**`)
                             .setThumbnail(`https://i.ytimg.com/vi/Ajxj6chgUI4/hqdefault.jpg`)
-                            .addField(`Số tiền`, 0.2+"$")
+                            .addField(`Số tiền`, 200+"vnđ")
                             .setFooter("💰 Economy system by Kuro")
                 
                         message.channel.send(dailyEmbed)
