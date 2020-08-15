@@ -1,12 +1,12 @@
 const Discord = require('discord.js')
-const config = require('../config.json')
+const config = require('../../config.json')
 const prefix = config.prefix
 
 module.exports = (message) => {
     let helpEmbed = new Discord.MessageEmbed()
     .setColor(config.embedColors.info)
     .setTitle(`Commands list`)
-    .setDescription(`**📜 Các câu hiện có trong server**`)
+    .setDescription(`**📜 Các câu lệnh hiện có trong server**`)
     .setThumbnail(`https://cdn.discordapp.com/icons/${message.guild.id}/${message.guild.icon}.png`)
     .addFields(
         {name: `🙋‍♂️ **${prefix}help**`, value: "Danh sách các lệnh"},

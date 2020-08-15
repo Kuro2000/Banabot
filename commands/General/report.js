@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const Report = require('../models/reportModels')
+const Report = require('../../models/reportModels')
+const logger = require('../../winston');
 
 module.exports = message => {
     let content = message.content.slice(7, message.content.length);
@@ -9,6 +10,7 @@ module.exports = message => {
     }
     const report = new Report({
         _id: mongoose.Types.ObjectId(),
+        guildID: message.guild.id,
         userID: message.author.id,
         username: message.author.username,
         report: content,
@@ -16,9 +18,9 @@ module.exports = message => {
     })
     report.save()
     .then(result => {
-        console.log(result)
+        logger.info(`Database: Report by ${message.author.id} collected: ${result}`)
         message.reply("Báo cáo đã được ghi nhận 📩")
     })
-    .catch(err => console.log.err)
+    .catch(err => logger.error(err))
 
 }

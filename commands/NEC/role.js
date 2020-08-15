@@ -1,7 +1,6 @@
-module.exports = (message) => {
-    if (message.channel.id != "706914192803758181"){ //The role function is temporarily useable in NEC bot-commands channel
-        return message.channel.send("Lệnh `!role` chưa khả dụng ở server này 💃")}
-        
+const logger = require('../../winston');
+
+module.exports = (message) => {        
     if (message.member._roles.length==0){
         let user_role = message.content.split(" ")[1]
         if(user_role === "btcm"){roleID = "706915179153326100"} //Role ID for BTCM role
@@ -20,5 +19,5 @@ module.exports = (message) => {
     roleAtts = message.guild.roles.cache.get(roleID);
     message.member.roles.add(roleAtts);
     message.reply("Bạn đã chọn role thành công, hãy kiểm tra các vùng chat mới theo role của bạn 🙆🙆")
-    console.log(`Successfully added roleID: ${message.member.roleID} to ${message.member.id}`)
+    logger.info(`Discord: Successfully assigned roleID: ${message.member.roleID} to ${message.member.id}`)
 }

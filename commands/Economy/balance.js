@@ -1,15 +1,15 @@
-const mongoose = require('mongoose')
-const User = require('../models/userModels');
+const User = require('../../models/userModels');
 const Discord = require('discord.js');
 const ms = require('parse-ms')
-const config = require('../config.json')
+const config = require('../../config.json')
+const logger = require('../../winston');
 
 module.exports = message => {
     const args = message.content.slice(9, message.content.length).split(" ");
     if(args[0]==''){args[0]='noArgs'} //Make switch(args[0]) return the default case
     switch(args[0]){
         default:
-            message.channel.send("🚫 Bạn chưa nhập đúng lệnh 🚫, các lệnh hiện có:\n`!balance god <amount> <reason> @user`: Thay đổi tiền của member (ADMIN-ONLY)\n`!balance ranking`: Hiện bảng xếp hạng\n`!balance daily`: Nhận lương hàng ngày")
+            message.channel.send("🕵️‍♀️ Hãy kiểm tra lại cú pháp bằng **``!help balance``**")
             break;
 
         case "god": //ADMIN ONLY: Alter money of users
@@ -21,9 +21,6 @@ module.exports = message => {
             }
 
             let targetID = message.mentions.members.first().id
-            let targetName = message.mentions.members.first()
-            console.log(`Balance change, UID: ${targetID}`)
-
             User.findOne({userID:targetID}, (err,user)=>{
                 if(user==null){ return message.reply("🚫 User không tồn tại 🚫");}
                 user.balance += parseInt(args[1])
@@ -33,8 +30,7 @@ module.exports = message => {
                     for (let i = 2; i < args.length-1; i++){
                         reason = reason + args[i] + " "
                     }
-
-                    console.log(`Changed ${result.userID} balance by ${args[1]}, reason: ${reason}`)
+                    logger.info(`Discord: Balance changed, ID: ${result.userID}, Amount: ${args[1]}, Reason: ${reason}`)
                     changeLog = new Discord.MessageEmbed()
                         .setColor(config.embedColors.success)
                         .setFooter("💰 Economy system by Kuro")
@@ -45,7 +41,7 @@ module.exports = message => {
                         )
                     message.channel.send(changeLog)
                 })
-                .catch(err => console.log(err))
+                .catch(err => logger.error(err))
             })
 
             break;
@@ -59,11 +55,11 @@ module.exports = message => {
                     i+=1
                 })
                 let ranking = new Discord.MessageEmbed()
-                .setColor(config.embedColors.info)
-                .setTitle("**🎖️🎖️ Top các đại gia 🎖️🎖️**")
-                .setThumbnail(message.guild.iconURL)
-                .setDescription(content)
-                .setFooter("💰 Economy system by Kuro")
+                    .setColor(config.embedColors.info)
+                    .setTitle("**🎖️🎖️ Top các đại gia 🎖️🎖️**")
+                    .setThumbnail(message.guild.iconURL)
+                    .setDescription(content)
+                    .setFooter("💰 Economy system by Kuro")
 
                 message.channel.send(ranking)
             })
@@ -83,17 +79,17 @@ module.exports = message => {
 
                     user.save()
                     .then(result=>{
-                        console.log(`${result.userID} claimed daily`)
+                        logger.info(`Discord: ${result.userID} claimed daily balance`)
                         let dailyEmbed = new Discord.MessageEmbed()
                             .setColor(config.embedColors.success)
                             .setDescription(`**Lương hàng ngày**`)
                             .setThumbnail(`https://i.ytimg.com/vi/Ajxj6chgUI4/hqdefault.jpg`)
-                            .addField(`Số tiền`, 200+"vnđ")
+                            .addField(`Số tiền`, 200+" vnđ")
                             .setFooter("💰 Economy system by Kuro")
                 
                         message.channel.send(dailyEmbed)
                     })
-                    .catch(err => console.log(err))    
+                    .catch(err => logger.error(err))    
                 }  
             })
 

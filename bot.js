@@ -4,7 +4,9 @@ const fs = require('fs');
 const client = new Discord.Client();
 const mongoose = require('mongoose');
 const db = mongoose.connection;
+const logger = require('./winston')
 
+//Establish Discord Client connection
 fs.readdir("./events",(err,files)=>{
     files.forEach(file=>{
         const eventHandler = require(`./events/${file}`);
@@ -15,8 +17,8 @@ fs.readdir("./events",(err,files)=>{
 
 client.login(process.env.BOT_TOKEN)
 
-//Database connection establish
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => console.log('DB Connected!'));
+//Establish Database connection
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => logger.info('Database: Connected!'));
 db.on('error', err=>{
-    console.log(`DB connection error: ${err.message}`)
+    logger.error(`Database: connection error: ${err.message}`)
 })

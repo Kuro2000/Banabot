@@ -1,60 +1,73 @@
-const kick = require("../commands/kick")
-const role = require("../commands/exclusive/role")
-const news = require("../commands/exclusive/news")
-const inv = require("../commands/inv")
-const vote = require("../commands/vote")
-const help = require("../commands/help")
-const report = require("../commands/report")
-const stats = require("../commands/stats")
-const send = require("../commands/send")
-const balance = require("../commands/balance")
 const config = require("../config.json")
+var requireDir = require('require-dir');
+var dir = requireDir('../commands', {recurse: true, extensions: ['.js']});
+const logger = require('../winston');
 
 // Embed visualizer link: https://leovoel.github.io/embed-visualizer/
 
 const prefix = config.prefix
 module.exports = (client, message) => {
+  if (message.content ==="test"){message.reply("Tested")}
+
   if (!message.content.startsWith(prefix) || message.author.bot) return; //Return none if prefix not detected or if author is also a bot
 
-  if(message.author.id == config.ownerID){ //Test functions for server owner
-    if (message.content.startsWith(prefix + "send")){ //Make custom announcements.
-      return send(message)
+  //Superuser commands
+  if (message.author.id == config.ownerID){ //Functions for server owner
+    if (message.content.startsWith(prefix + "broadcast")){ //Make custom announcements.
+      logger.info("Discord: "+ message.author.id +" initiated broadcast command")
+      return dir.Superuser.broadcast(message)
     }
   }
 
-  if (message.content.startsWith(prefix + "role")){ //Set role function, only useable in specified GuildID.
-    return role(message)
+  //Economy commands
+  if (message.guild.id != config.NECGuildID){
+    message.channel.send("Lệnh chỉ khả dụng tại Discord **Ban Chuyên môn NEC**")
+  } else{
+    if (message.content.startsWith(prefix+"stats")){ //Check user's stats
+      return dir.Economy.stats(message)
+    }
+
+    if (message.content.startsWith(prefix + "balance")){ //Economy commands
+      return dir.Economy.balance(message)
+    }
   }
 
-  if (message.content.startsWith(prefix + "news")){ //Set role function, only useable in specified GuildID.
-    return news(message)
-  }
-
-  if (message.content.startsWith(prefix+"report")){ //Report issues function.
-    return report(message)
-  }
-
-  if (message.content.startsWith(prefix+"stats")){ //Check stat
-    return stats(message)
-  }
-
-  if (message.content.startsWith(prefix + "kick")){ //Kick function.
-    return kick(message)
+  //General commands
+  if(message.content.startsWith(prefix + "help")){ //Get list of function.
+    return dir.General.help(message)
   }
 
   if (message.content.startsWith(prefix + "inv")){ //Get invite link function.
-    return inv(message)
+    return dir.General.inv(message)
+  }
+
+  if (message.content.startsWith(prefix+"report")){ //Report issues function.
+    return dir.General.report(message)
+  }
+
+  if(message.content.startsWith(prefix + "someone")){ // Mention an user randomly
+    return dir.General.someone(message)
   }
 
   if(message.content.startsWith(prefix + "vote")){ //Vote function.
-    return vote(message)
+    return dir.General.vote(message)
+  }
+  
+  //Moderation commands
+  if (message.content.startsWith(prefix + "kick")){ //Kick function.
+    return dir.Moderation.kick(message)
   }
 
-  if(message.content.startsWith(prefix + "help")){ //Get list of function.
-    return help(message)
-  }
-
-  if(message.content.startsWith(prefix + "balance")){ //Economy commands
-    return balance(message)
+  //NEC-only commands
+  if (message.guild.id != config.NECGuildID){
+    message.channel.send("Lệnh chỉ khả dụng tại Discord **Ban Chuyên môn NEC**")
+  } else{
+    if (message.content.startsWith(prefix + "role")){ //Set role function, only useable in specified GuildID.
+      return dir.NEC.role(message)
+    }
+  
+    if (message.content.startsWith(prefix + "news")){ //Check news
+      return dir.NEC.news(message)
+    }
   }
 }
