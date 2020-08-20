@@ -1,73 +1,40 @@
-const config = require("../config.json")
-var requireDir = require('require-dir');
-var dir = requireDir('../commands', {recurse: true, extensions: ['.js']});
+const config = require('../config.json');
 const logger = require('../winston');
 
 // Embed visualizer link: https://leovoel.github.io/embed-visualizer/
 
-const prefix = config.prefix
+const prefix = config.prefix;
 module.exports = (client, message) => {
-  if (message.content ==="test"){message.reply("Tested")}
+	// Return none if prefix not detected or if author is also a bot
+	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-  if (!message.content.startsWith(prefix) || message.author.bot) return; //Return none if prefix not detected or if author is also a bot
+	const args = message.content.slice(prefix.length).trim().split(/ +/);
+	const commandName = args.shift().toLowerCase();
 
-  //Superuser commands
-  if (message.author.id == config.ownerID){ //Functions for server owner
-    if (message.content.startsWith(prefix + "broadcast")){ //Make custom announcements.
-      logger.info("Discord: "+ message.author.id +" initiated broadcast command")
-      return dir.Superuser.broadcast(message)
-    }
-  }
+	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
-  //Economy commands
-  if (message.guild.id != config.NECGuildID){
-    message.channel.send("Lệnh chỉ khả dụng tại Discord **Ban Chuyên môn NEC**")
-  } else{
-    if (message.content.startsWith(prefix+"stats")){ //Check user's stats
-      return dir.Economy.stats(message)
-    }
+	// Return none if the command is not found
+	if(!command) return;
 
-    if (message.content.startsWith(prefix + "balance")){ //Economy commands
-      return dir.Economy.balance(message)
-    }
-  }
+	// Check if the command require arguments
+	if (command.argRequired && !args.length) {
+		let reply = 'Nhập lệnh ``!help`` để xem lại cú pháp';
+		if(command.usage) {
+			reply += `\nCách sử dụng đúng: \`${prefix}${command.name} ${command.usage}\``;
+		}
 
-  //General commands
-  if(message.content.startsWith(prefix + "help")){ //Get list of function.
-    return dir.General.help(message)
-  }
+		return message.channel.send(reply);
+	}
+	// Check if the command work in DMs
+	if (command.guildOnly && message.channel.type === 'dm') {
+		return message.reply('Lệnh không khả dụng trong DMs');
+	}
 
-  if (message.content.startsWith(prefix + "inv")){ //Get invite link function.
-    return dir.General.inv(message)
-  }
-
-  if (message.content.startsWith(prefix+"report")){ //Report issues function.
-    return dir.General.report(message)
-  }
-
-  if(message.content.startsWith(prefix + "someone")){ // Mention an user randomly
-    return dir.General.someone(message)
-  }
-
-  if(message.content.startsWith(prefix + "vote")){ //Vote function.
-    return dir.General.vote(message)
-  }
-  
-  //Moderation commands
-  if (message.content.startsWith(prefix + "kick")){ //Kick function.
-    return dir.Moderation.kick(message)
-  }
-
-  //NEC-only commands
-  if (message.guild.id != config.NECGuildID){
-    message.channel.send("Lệnh chỉ khả dụng tại Discord **Ban Chuyên môn NEC**")
-  } else{
-    if (message.content.startsWith(prefix + "role")){ //Set role function, only useable in specified GuildID.
-      return dir.NEC.role(message)
-    }
-  
-    if (message.content.startsWith(prefix + "news")){ //Check news
-      return dir.NEC.news(message)
-    }
-  }
-}
+	try {
+		command.execute(message, args);
+	}
+	catch (error) {
+		logger.error(error);
+		message.reply('Có lỗi xảy ra, hãy thử lại');
+	}
+};

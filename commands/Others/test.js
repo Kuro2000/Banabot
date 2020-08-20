@@ -1,9 +1,10 @@
 module.exports = {
-	name: 'broadcast',
-	description: 'Broadcast a message',
-	aliases: ['b'],
+	name: 'test',
+	description: 'Test function',
+	aliases: [],
 	guildOnly: false,
-	argRequired: false,
+	argRequired: true,
+	usage: '<test>',
 	// eslint-disable-next-line no-unused-vars
 	execute(message, args) {
 		message.channel.send('Pong.');
