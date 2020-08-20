@@ -2,6 +2,7 @@
     "ownerID": "155959668441743360",
     "prefix": "!",
     "welcomeChannel": "welcome",
+    "botChannel": "bot-commands",
     "NECGuildID": "650993735890501652",
 
     "embedColors":{
