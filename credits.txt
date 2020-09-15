@@ -1,3 +1,0 @@
-https://thomlom.dev/create-a-discord-bot-under-15-minutes/ : My fundamental 
-discord.js.org: The Official Discord.js Documentation
-https://viblo.asia/p/tao-logger-trong-ung-dung-nodejs-voi-thu-vien-winston-djeZ1G885Wz: Logger
