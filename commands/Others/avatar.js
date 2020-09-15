@@ -10,8 +10,14 @@ module.exports = {
 	usage: '[mention]',
 	// eslint-disable-next-line no-unused-vars
 	execute(message, args) {
-		let member = message.mentions.members.first();
-		if(!member) member = message.author;
+		const member = message.mentions.members.first();
+		if(!member) {
+			const avatarURL = message.author.displayAvatarURL({ size: 512, dynamic: true }).replace('.webp', '.png');
+			const attachment = new Discord.MessageAttachment(avatarURL, `avatar.${avatarURL.split('.').pop().split('?')[0]}`);
+			message.channel.send(attachment);
+
+			return logger.info(`Fetch ${message.author.id} avatar success`);
+		}
 		const avatarURL = member.user.displayAvatarURL({ size: 512, dynamic: true }).replace('.webp', '.png');
 		const attachment = new Discord.MessageAttachment(avatarURL, `avatar.${avatarURL.split('.').pop().split('?')[0]}`);
 		message.channel.send(attachment);
