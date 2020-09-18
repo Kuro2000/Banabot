@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'broadcast',
-	description: 'Broadcast a message',
+	description: 'Truyền tin nhắn',
+	category: 'superuser',
 	aliases: ['b'],
 	guildOnly: false,
 	argRequired: false,

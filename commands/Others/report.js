@@ -4,7 +4,8 @@ const logger = require('../../winston');
 
 module.exports = {
 	name: 'report',
-	description: 'Feedback to improve the BOT 🤖',
+	description: 'Đóng góp cải thiện BOT 🍌',
+	category: 'others',
 	aliases: ['r', 'feedback'],
 	guildOnly: false,
 	argRequired: true,

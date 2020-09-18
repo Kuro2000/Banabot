@@ -3,7 +3,8 @@ const logger = require('../../winston');
 
 module.exports = {
 	name: 'invite',
-	description: 'Create server invite link',
+	description: 'Lấy link invite',
+	category: 'general',
 	aliases: ['inv', 'i', 'ivt'],
 	guildOnly: true,
 	argRequired: false,

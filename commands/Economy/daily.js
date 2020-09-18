@@ -6,7 +6,8 @@ const logger = require('../../winston');
 
 module.exports = {
 	name: 'daily',
-	description: 'Claim wages according to level',
+	description: 'Lĩnh lương dựa theo level',
+	category: 'economy',
 	aliases: ['d'],
 	guildOnly: true,
 	argRequired: false,

@@ -4,7 +4,8 @@ const config = require('../../config.json');
 
 module.exports = {
 	name: 'rank',
-	description: 'Get leaderboards of the server sort by balance',
+	description: 'Xem Bảng xếp hạng dựa trên coin',
+	category: 'economy',
 	aliases: ['ranking', 'leaderboards', 'r', 'l'],
 	guildOnly: true,
 	argRequired: false,

@@ -5,7 +5,8 @@ const logger = require('../../winston');
 
 module.exports = {
 	name: 'transfer',
-	description: 'Transfer money between users',
+	description: 'Lệnh chuyển khoản',
+	category: 'economy',
 	aliases: [],
 	guildOnly: true,
 	argRequired: true,

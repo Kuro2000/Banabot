@@ -2,7 +2,8 @@ const logger = require('../../winston');
 
 module.exports = {
 	name: 'kick',
-	description: 'Kick a mentioned user',
+	description: 'Kick user được nhắc đến',
+	category: 'moderation',
 	aliases: [],
 	guildOnly: true,
 	argRequired: true,

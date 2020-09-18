@@ -3,7 +3,8 @@ const logger = require('../../winston');
 
 module.exports = {
 	name: 'role',
-	description: 'Assign a role to user',
+	description: 'Set role tự động',
+	category: 'nec',
 	aliases: [],
 	guildOnly: true,
 	argRequired: true,

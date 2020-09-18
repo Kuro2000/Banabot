@@ -6,7 +6,8 @@ const logger = require('../../winston');
 
 module.exports = {
 	name: 'stats',
-	description: 'Get users info',
+	description: 'Xem thông tin cá nhân',
+	category: 'economy',
 	aliases: ['info'],
 	guildOnly: true,
 	argRequired: false,

@@ -1,6 +1,9 @@
+// WIP mention a person from a provided role
+
 module.exports = {
 	name: 'someone',
-	description: 'Randomly mention a member',
+	description: 'Mention ngẫu nhiên một người',
+	category: 'general',
 	aliases: [],
 	guildOnly: true,
 	argRequired: false,

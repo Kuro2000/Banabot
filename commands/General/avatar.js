@@ -3,13 +3,13 @@ const logger = require('../../winston');
 
 module.exports = {
 	name: 'avatar',
-	description: 'Get mentioned users avatar',
+	description: 'Xem avatar của bản thân hoặc của người được mention',
+	category: 'general',
 	aliases: [],
 	guildOnly: true,
 	argRequired: false,
-	usage: '[mention]',
-	// eslint-disable-next-line no-unused-vars
-	execute(message, args) {
+	usage: '<mention>',
+	execute(message) {
 		const member = message.mentions.members.first();
 		if(!member) {
 			const avatarURL = message.author.displayAvatarURL({ size: 512, dynamic: true }).replace('.webp', '.png');

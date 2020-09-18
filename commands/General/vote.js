@@ -2,10 +2,10 @@ const Discord = require('discord.js');
 const config = require('../../config.json');
 const logger = require('../../winston');
 
-
 module.exports = {
 	name: 'vote',
-	description: 'Vote YES/NO for the topic',
+	description: 'Tạo bảng vote YES/NO dựa trên chủ đề đưa ra',
+	category: 'general',
 	aliases: [],
 	guildOnly: false,
 	argRequired: false,

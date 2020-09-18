@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'test',
 	description: 'Test function',
+	category: 'others',
 	aliases: [],
 	guildOnly: false,
 	argRequired: true,
