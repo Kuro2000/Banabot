@@ -1,5 +1,5 @@
-# Discord-Bot
-Created a Discord Bot for auto moderation
+# Banabot
+A Discord BOT that assists medium-sized teams, groups to work and communicate efficiently. Also come with a dashboard!
 
 Currently deploying on Heroku, with `BOT_TOKEN` and `MONGO_URI` provided in configvars
 
