@@ -4,6 +4,7 @@
   "description": "Management bot BETA",
   "main": "bot.js",
   "scripts": {
+    "lint": "eslint",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node bot.js",
     "dev": "nodemon bot.js"
@@ -18,11 +19,16 @@
     "express": "^4.17.1",
     "mongodb": "^3.5.8",
     "mongoose": "^5.9.18",
+    "node-fetch": "^2.6.1",
     "parse-ms": "^2.1.0",
+    "qrcode": "^1.4.4",
+    "reaction-role": "^3.1.0",
+    "request": "^2.88.2",
     "require-dir": "^1.2.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "eslint": "^7.9.0",
     "nodemon": "^2.0.3"
   }
 }
