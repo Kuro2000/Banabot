@@ -5,7 +5,7 @@ module.exports = {
 	aliases: [],
 	guildOnly: true,
 	argRequired: true,
-	execute(message) {
+	execute(message, args) {
 		switch (args[0]) {
 		default:
 			return message.channel.send('Chưa code xong 😞');

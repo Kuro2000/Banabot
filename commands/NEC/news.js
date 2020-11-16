@@ -1,6 +1,6 @@
 module.exports = {
 	name: 'news',
-	description: 'Check việc up news',
+	description: 'Check việc up news BCM',
 	category: 'nec',
 	aliases: [],
 	guildOnly: false,

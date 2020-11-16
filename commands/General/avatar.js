@@ -5,7 +5,7 @@ module.exports = {
 	name: 'avatar',
 	description: 'Xem avatar của bản thân hoặc của người được mention',
 	category: 'general',
-	aliases: [],
+	aliases: ['ava'],
 	guildOnly: true,
 	argRequired: false,
 	usage: '<mention>',

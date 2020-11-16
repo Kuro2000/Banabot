@@ -11,10 +11,13 @@ module.exports = {
 	argRequired: true,
 	usage: '<content>',
 	execute(message, args) {
+		// Get the content
 		let content = '';
 		args.forEach(arg => {
 			content += (arg + ' ');
 		});
+
+		// Save to DB
 		const report = new Report({
 			_id: mongoose.Types.ObjectId(),
 			guildID: message.guild.id,
