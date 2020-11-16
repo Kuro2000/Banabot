@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 client.commands = new Discord.Collection();
+client.config = new Discord.Collection();
 
 require('dotenv').config();
 
@@ -17,6 +18,7 @@ const logger = require('./winston');
 
 // Events handlers
 fs.readdir('./events', (err, files)=>{
+	if(err) return logger.error(err);
 	files.forEach(file=>{
 		const eventHandler = require(`./events/${file}`);
 		const eventName = file.split('.')[0];
@@ -35,6 +37,8 @@ Object.keys(dir).forEach(category =>{
 client.login(process.env.BOT_TOKEN);
 
 // Establish Database connection
+if(!process.env.MONGO_URI) return logger.warn('Database: No URI provided');
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => logger.info('Database: Connected!'));
 db.on('error', err=>{
 	logger.error(`Database: connection error: ${err.message}`);
