@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "mongodb": "^3.5.8",
     "mongoose": "^5.9.18",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "parse-ms": "^2.1.0",
     "qrcode": "^1.4.4",
     "reaction-role": "^3.1.0",
