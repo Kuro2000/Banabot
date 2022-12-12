@@ -16,7 +16,7 @@
     "concurrently": "^5.3.0",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongodb": "^3.5.8",
     "mongoose": "^5.9.18",
     "node-fetch": "^2.6.7",
